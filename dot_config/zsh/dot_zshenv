@@ -1,0 +1,7 @@
+#!/bin/zsh
+#
+# Executed by zsh(1) for login shells.
+[ -f $HOME/.config/sh/profile ] && . $HOME/.config/sh/profile
+
+
+#this is some edits for chezmoi to find
