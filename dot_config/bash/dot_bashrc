@@ -1,0 +1,46 @@
+#!.bin./bash
+#
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+[ -f "$XDG_CONFIG_HOME/sh/aliases" ] && . "$XDG_CONFIG_HOME/sh/aliases"
+
+export HISTFILE="$XDG_CACHE_HOME/bash/bash_history"
+
+shopt -s autocd                  # If command is a path, cd into it.
+shopt -s checkjobs               # List the status of any stopped and running jobs before exiting an interactive shell.
+shopt -s checkwinsize            # Check the window size after each command.
+shopt -s cmdhist                 # Save all lines of a multiple line command in the same history entry.
+shopt -s dotglob                 # Include dotfiles in globbing.
+shopt -s gnu_errfmt              # Write shell error messages in the standard GNU error message format.
+shopt -s histappend              # Append the history list to the file named by the value of HISTFILE.
+shopt -s histreedit              # Give the opportunity to re-edit a failed history substitution.
+shopt -s histverify              # Show before executing history commands.
+shopt -s lithist                 # Multi-line commands are saved to the history with embedded new lines.
+shopt -s no_empty_cmd_completion # Avoid completion on an empty line.
+
+# User specific environment
+#if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+#then
+#    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+#fi
+#export PATH
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+#if [ -d ~/.bashrc.d ]; then
+#	for rc in ~/.bashrc.d/*; do
+#		if [ -f "$rc" ]; then
+#			. "$rc"
+#		fi
+#	done
+#fi
+
+#unset rc
+
