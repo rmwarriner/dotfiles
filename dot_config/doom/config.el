@@ -6,8 +6,36 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
-;;       user-mail-address "john@doe.com")
+(setq user-full-name "Robert Warriner"
+      user-mail-address "robert.warriner@mailbox.org")
+
+(cond (IS-MAC
+       (setq mac-command-modifier       'meta
+             mac-option-modifier        'alt
+             mac-right-option-modifier  'alt
+             mac-pass-control-to-system nil)))
+
+(setq kill-whole-line t)
+
+(setq auto-save-default t
+      make-backup-files t)
+
+(setq confirm-kill-emacs nil)
+
+(setq +doom-dashboard-menu-sections (cl-subseq +doom-dashboard-menu-sections 0 2))
+
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18)
+      ;;doom-variable-pitch-font (font-spec :family "ETBembo" :size 18)
+      doom-variable-pitch-font (font-spec :family "Alegreya" :size 18))
+
+(add-hook! 'org-mode-hook #'mixed-pitch-mode)
+;;(add-hook! 'org-mode-hook #'solaire-mode)
+(setq mixed-pitch-variable-pitch-cursor nil)
+
+;; Maximize the window on start up
+(setq initial-frame-alist '((top . 1) (left . 1) (width . 114) (height . 32)))
+
+
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -32,7 +60,9 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+;;(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-gruvbox)
+
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -41,6 +71,20 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+
+(after! org
+  (setq org-hide-emphasis-markers t)
+  (setq org-insert-heading-respect-content nil)
+  (setq org-log-done t)
+  (setq org-log-into-drawer t)
+  (setq org-special-ctrl-a/e t)
+  (setq org-special-ctrl-k t))
+
+(add-hook! org-mode :append
+           #'visual-line-mode
+           #'variable-pitch-mode)
+
+(add-hook! org-mode :append #'org-appear-mode)
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
