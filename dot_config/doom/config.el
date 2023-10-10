@@ -28,7 +28,7 @@
       ;;doom-variable-pitch-font (font-spec :family "ETBembo" :size 18)
       doom-variable-pitch-font (font-spec :family "Alegreya" :size 18))
 
-(add-hook! 'org-mode-hook #'mixed-pitch-mode)
+;;(add-hook! 'org-mode-hook #'mixed-pitch-mode)
 ;;(add-hook! 'org-mode-hook #'solaire-mode)
 (setq mixed-pitch-variable-pitch-cursor nil)
 
@@ -85,6 +85,13 @@
            #'variable-pitch-mode)
 
 (add-hook! org-mode :append #'org-appear-mode)
+
+(setq org-capture-templates
+      '(("c" "Cookbook" entry (file "~/org/cookbook.org")
+         "%(org-chef-get-recipe-from-url)"
+         :empty-lines 1)
+        ("m" "Manual Cookbook" entry (file "~/org/cookbook.org")
+         "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
