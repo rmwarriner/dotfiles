@@ -1,0 +1,59 @@
+#!/bin/sh
+#
+# Executed by login shells.
+# Not read by bash(1), if ~/.bash_profile or ~/.bash_login exists.
+# shellcheck disable=SC1090
+# shellcheck disable=SC2174
+
+# Load environment variables.
+[ -f ~/.config/sh/environ ] && . ~/.config/sh/environ
+
+# Tell the Shell used by default.
+export SHELL=${SHELL:-/bin/bash}
+
+# Path to the oh-my-zsh configuration.
+export ZSH=$XDG_CONFIG_HOME/oh-my-zsh
+
+# Create the XDG folders if it's not done yet.
+test -d "$XDG_BIN_HOME"    || mkdir -p -m 0700 "$XDG_BIN_HOME"
+test -d "$XDG_CACHE_HOME"  || mkdir -p -m 0700 "$XDG_CACHE_HOME"
+test -d "$XDG_CONFIG_HOME" || mkdir -p -m 0700 "$XDG_CONFIG_HOME"
+test -d "$XDG_DATA_HOME"   || mkdir -p -m 0700 "$XDG_DATA_HOME"
+test -d "$XDG_LIB_HOME"    || mkdir -p -m 0700 "$XDG_LIB_HOME"
+
+#if [ "$BASH" ] && [ -f ~/.bashrc ]; then
+#    . ~/.bashrc
+#fi
+
+#cd ~ || exit
+
+if grep -i "microsoft" /proc/version &> /dev/null; then
+ export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 #GWSL
+ export PULSE_SERVER=tcp:$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}') #GWSL
+ export LIBGL_ALWAYS_INDIRECT=1 #GWSL
+ export GDK_SCALE=2 #GWSL
+ export QT_SCALE_FACTOR=2 #GWSL
+ export GTK_THEME Windows-10-light
+
+ export LANG en_US.UTF-8
+ export LC_TIME fr_FR.UTF-8
+fi
+
+# Mute the microphone.
+pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Tell the state of the battery.
+bat_state() {
+    upower -i /org/freedesktop/UPower/devices/battery_BAT0 \
+        | grep state | awk '{ print $2 }'
+}
+
+#if [ "$(bat_state)" = "discharging" ]; then
+#    light -S 20
+#else
+#    light -S 60
+#fi
+
+if [ "$(tty)" = "/dev/tty1" ]; then
+    pgrep -x sway | exec ssh-agent sway
+fi
