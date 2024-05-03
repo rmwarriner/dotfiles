@@ -5,6 +5,9 @@
 # Load XDG specifications.
 [ -f ~/.config/sh/xdg ] && . ~/.config/sh/xdg
 
+# Assign the ledger file
+export LEDGER_FILE="$HOME/accounting/ledger/warriner.journal"
+
 # Fix issues with Java applications and Wayland.
 export _JAVA_AWT_WM_NONREPARENTING=1
 
