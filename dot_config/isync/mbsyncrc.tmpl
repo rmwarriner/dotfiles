@@ -1,21 +1,21 @@
-IMAPAccount mailbox.org
+IMAPAccount robert-warriner
 Host imap.mailbox.org
 User robert.warriner@mailbox.org
-PassCmd "{{ onepasswordRead "op://personal/mailbox/password" }}"
-SSLVersion TLSv1.2
+Pass {{ onepasswordRead "op://personal/mailbox/password" }}
+SSLType STARTTLS
 
-IMAPStore mailbox.org-remote
-Account mailbox.org
+IMAPStore mailbox-remote
+Account robert-warriner
 
-MaildirStore mailbox.org-local
-Path ~/mail/mailbox.org/
-Inbox ~/mail/mailbox.org/INBOX
+MaildirStore mailbox-local
+Path ~/mail/mailbox/
+Inbox ~/mail/mailbox/INBOX
 SubFolders Verbatim
 
-Channel mailbox.org
-Far :mailbox.org-remote:
-Near :mailbox.org-local:
-Patterns *
+Channel mailbox
+Far :mailbox-remote:
+Near :mailbox-local:
+Patterns * !Archives
 Create Both
 Expunge Both
 SyncState *
